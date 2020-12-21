@@ -8,12 +8,21 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "clone-deep": "^4.0.1",
+    "debounce": "^1.2.0",
     "expo": "~39.0.2",
+    "expo-location": "~9.0.0",
     "expo-status-bar": "~1.0.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
-    "react-native-web": "~0.13.12"
+    "react-native-communications": "^2.2.1",
+    "react-native-hamburger": "0.0.2",
+    "react-native-maps": "0.27.1",
+    "react-native-open-maps": "^0.3.5",
+    "react-native-star-rating": "^1.1.0",
+    "react-native-web": "~0.13.12",
+    "redux": "^4.0.5"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
