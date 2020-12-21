@@ -14,7 +14,7 @@ export default class Restaurant extends Component {
         <View style={[s.starContainer, u.abs, s.paddingLeft]}>{RenderRating(this.props.data.rating, s.star.height)}</View>
         <Text style={[s.info, s.paddingLeft, s.textColor]}>{this.props.data.description}</Text>
         <View style={[s.smallerScreenSpacer, u.fullW]} />
-        <Reviews data={this.props.data} />
+        {/* <Reviews data={this.props.data} /> */}
         <Actions data={this.props.data} />
       </View>
     );

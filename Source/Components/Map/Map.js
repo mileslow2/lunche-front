@@ -32,7 +32,7 @@ export default class Map extends Component {
       const showSearch = store.key == -1;
       const newLat = showSearch ? 0.0043 : 0.0057;
       var newLoc = store.location;
-      newLoc.latitude -= newLat;
+      newLoc.latitude -= newLat - 0.0018;
       // store.location.latitude -= newLat;
       this.moveMap(newLoc);
       this.setState({

@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from "react-native";
 import R from "../Components/Universal/Round";
 const { height } = Dimensions.get("screen");
 const markerSize = R(height / 15.44);
-export default (s = StyleSheet.create({
+export default s = StyleSheet.create({
   marker: {
     width: markerSize,
     height: markerSize,
@@ -11,13 +11,12 @@ export default (s = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: R(markerSize / 2),
     bottom: R(markerSize / 2),
-    elevation: 5
   },
   image: {
     width: R(markerSize / 1.16),
     height: R(markerSize / 1.16),
     borderRadius: R(markerSize / 2.32),
-    zIndex: 1
+    zIndex: 1,
   },
   triangle: {
     top: R(markerSize / 1.32),
@@ -32,10 +31,10 @@ export default (s = StyleSheet.create({
     borderLeftColor: "transparent",
     borderRightColor: "transparent",
     borderBottomColor: "white",
-    transform: [{ rotate: "180deg" }]
+    transform: [{ rotate: "180deg" }],
   },
   container: {
     padding: R(markerSize / 1.45),
-    elevation: 5
-  }
-}));
+    elevation: 5,
+  },
+});

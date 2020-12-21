@@ -7,12 +7,12 @@ import { Store, FocusChange } from "../../Redux";
 import { debounce } from "debounce";
 import Decide, { nearbyAllowed } from "./Decider";
 import Nearby from "../Nearby/Nearby";
-import R from "../Universal/Round";
 import { HamburgerHandler } from "../../Redux";
 const { height } = Dimensions.get("screen");
 
-const nearbyHeight = R(height > 736 ? height * 0.9 : height * 0.95);
-const restaurantHeight = R(height > 736 ? height * 0.79 : height * 0.84);
+//calculates the heights for nearby and restaurant screen based on screen size
+const nearbyHeight = Math.round(height > 736 ? height * 0.9 : height * 0.95);
+const restaurantHeight = Math.round(height > 736 ? height * 0.79 * 0.7 : height * 0.84 * 0.8);
 
 var finishHeight, focusHeight, toggled;
 
