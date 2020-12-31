@@ -6,6 +6,7 @@ import GetMoreData from "../../Fetchers/GetMoreData";
 import { phonecall } from "react-native-communications";
 import openMap from "react-native-open-maps";
 import Hours from "./Modal";
+import { RestaurantDisplay } from "../../Redux";
 
 export default class Action extends Component {
   constructor(props) {
@@ -74,6 +75,10 @@ export default class Action extends Component {
         visible: true,
       });
     }
+    if (action == "View menu") {
+      console.log("yo");
+      RestaurantDisplay.dispatch({ type: "update", payload: false });
+    }
   };
 
   renderItem = ({ item }) => {
@@ -83,7 +88,7 @@ export default class Action extends Component {
         <Text style={[s.other, s.textColor]}>{item.other}</Text>
         <TouchableOpacity
           onPress={() => {
-            //   this.decideFunction(item.action);
+            this.decideFunction(item.action);
           }}
           style={s.action}>
           <Text style={[s.actionText, u.abs, u.centerH, u.centerV, u.textWhite]}>{item.action}</Text>

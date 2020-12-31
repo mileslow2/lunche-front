@@ -4,33 +4,36 @@ function r(n) {
   return Math.round(n);
 }
 const largeText = r(height / 35.84);
-export default (s = StyleSheet.create({
+export default s = StyleSheet.create({
   title: {
     marginTop: r(largeText / 3.5),
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   starContainer: {
     width: largeText * 2,
-    marginTop: r(largeText / 0.73)
+    marginTop: r(largeText / 0.73),
   },
   paddingLeft: {
-    paddingLeft: r(largeText / 1.47)
+    paddingLeft: r(largeText / 1.47),
   },
   info: {
     fontSize: r(largeText / 1.25),
-    marginTop: r(largeText / 0.9)
+    marginTop: r(largeText / 0.9),
   },
   textColor: {
-    color: "#6b6b6b"
+    color: "#6b6b6b",
   },
   largeText: {
     fontSize: largeText,
-    fontWeight: "500"
+    fontWeight: "500",
   },
   star: {
-    height: r(largeText / 0.926)
+    height: r(largeText / 0.926),
   },
-  smallerScreenSpacer: {
-    height: r > 23 ? 0 : 10
-  }
-}));
+  spacer: {
+    height: 30 + (r > 23 ? 0 : 10),
+    borderBottomRightRadius: 30,
+    borderBottomLeftRadius: 30,
+    bottom: 20,
+  },
+});

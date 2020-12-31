@@ -1,47 +1,47 @@
 import { StyleSheet } from "react-native";
-export default (u = StyleSheet.create({
+export default u = StyleSheet.create({
   shadow: {
     shadowColor: "#9c9191",
     shadowRadius: 3,
     shadowOpacity: 1,
     shadowOffset: { height: 1 },
-    elevation: 5
+    elevation: 5,
   },
   abs: {
-    position: "absolute"
+    position: "absolute",
   },
   centerH: {
-    alignSelf: "center"
+    alignSelf: "center",
   },
   centerV: {
-    justifyContent: "center"
+    justifyContent: "center",
   },
   white: {
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   row: {
-    flexDirection: "row"
+    flexDirection: "row",
   },
   alignItemsCenter: {
-    alignItems: "center"
+    alignItems: "center",
   },
   fullW: {
-    width: 100 + "%"
+    width: 100 + "%",
   },
   red: {
-    backgroundColor: "red"
+    backgroundColor: "red",
   },
   col: {
-    flexDirection: "column"
+    flexDirection: "column",
   },
   stars: {
     left: 10,
-    bottom: 8
+    bottom: 8,
   },
   z1: {
-    zIndex: 1
+    zIndex: 1,
   },
   textWhite: {
-    color: "white"
-  }
-}));
+    color: "white",
+  },
+});
