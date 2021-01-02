@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FlatList, Text, View, SafeAreaView, Image, Dimensions } from "react-native";
+import { FlatList, Text, View, Image, Dimensions } from "react-native";
 import GetMenu from "../../Fetchers/GetMenu";
 import u from "../../Styles/UniversalStyles";
 import s from "../../Styles/MenuStyles";
@@ -33,20 +33,16 @@ const MenuHeader = ({ headerName }) => <Text>{headerName}</Text>;
 
 const renderMenuCategory = ({ item }) => {
   return (
-    <SafeAreaView style={u.centerH}>
+    <View style={u.centerH}>
       <FlatList ListHeaderComponent={<Text style={s.sectionHeader}>{item.sectionName}</Text>} data={item.sectionItems} renderItem={Foods} keyExtractor={(item) => item.id} />
-    </SafeAreaView>
+    </View>
   );
 };
 
 const Menu = (props) => {
   let menu = GetMenu("test");
 
-  return (
-    <SafeAreaView>
-      <FlatList data={menu} renderItem={renderMenuCategory} keyExtractor={(item) => item.id} />
-    </SafeAreaView>
-  );
+  return <FlatList data={menu} renderItem={renderMenuCategory} keyExtractor={(item) => item.id} />;
 };
 
 export default Menu;

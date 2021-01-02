@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, SafeAreaView } from "react-native";
+import { View, SafeAreaView } from "react-native";
 import Map from "./Map";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
@@ -115,7 +115,7 @@ export default class Main extends React.Component {
       return <View style={{ backgroundColor: "white", flex: 1 }} />;
     }
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
         <Map region={this.state.region} markers={this.state.markers} />
       </SafeAreaView>
     );
