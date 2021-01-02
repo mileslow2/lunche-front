@@ -24,14 +24,22 @@ export default s = StyleSheet.create({
     fontSize: 14,
     paddingTop: 5,
     zIndex: 2,
-    width: w - w / 3,
     // paddingBottom: 30,
+  },
+  foodImage: {
+    width: h / 11,
+    height: h / 11,
+    borderRadius: h / 5.5,
   },
   foodPrice: {
     color: "rgb(83, 204, 151)",
     fontSize: 16,
     textAlign: "right",
     fontWeight: "bold",
+    right: 0,
+    position: "absolute",
+    right: w / 30,
+    bottom: 6,
   },
   foodItem: {
     width: w - w / 10,
@@ -40,6 +48,7 @@ export default s = StyleSheet.create({
     marginBottom: 20,
     paddingHorizontal: 24,
     paddingBottom: 10,
+    height: 105,
   },
   listImage: {
     width: 50,

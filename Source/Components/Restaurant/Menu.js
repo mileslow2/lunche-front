@@ -1,14 +1,29 @@
 import React, { Component } from "react";
-import { FlatList, Text, View, SafeAreaView } from "react-native";
+import { FlatList, Text, View, SafeAreaView, Image, Dimensions } from "react-native";
 import GetMenu from "../../Fetchers/GetMenu";
 import u from "../../Styles/UniversalStyles";
 import s from "../../Styles/MenuStyles";
+const w = Dimensions.get("window").width;
 
 const Foods = ({ item }) => {
+  const imageExists = item.image != null;
+  const image = imageExists ? <Image style={s.foodImage} source={{ uri: item.image }} /> : null;
+  let foodTextContainerStyle = {
+    width: w - w / 3,
+  };
+  if (imageExists) {
+    foodTextContainerStyle.width = w - w / 2.3;
+    foodTextContainerStyle.paddingLeft = 20;
+  }
   return (
     <View style={[u.shadow, u.col, u.white, s.foodItem]}>
-      <Text style={s.foodName}>{item.title}</Text>
-      <Text style={s.foodDesc}>{item.description}</Text>
+      <View style={u.row}>
+        {image}
+        <View style={foodTextContainerStyle}>
+          <Text style={s.foodName}>{item.title}</Text>
+          <Text style={s.foodDesc}>{item.description}</Text>
+        </View>
+      </View>
       <Text style={s.foodPrice}>${item.price}</Text>
     </View>
   );
