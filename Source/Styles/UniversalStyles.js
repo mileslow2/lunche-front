@@ -5,7 +5,7 @@ export default u = StyleSheet.create({
     shadowRadius: 3,
     shadowOpacity: 1,
     shadowOffset: { height: 1 },
-    elevation: 5,
+    // elevation: 5,
   },
   abs: {
     position: "absolute",

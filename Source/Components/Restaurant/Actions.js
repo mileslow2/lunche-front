@@ -18,7 +18,7 @@ export default class Action extends Component {
     };
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     moreData = await GetMoreData(this.state.data);
     list = this.listifyData(moreData);
     this.setState({
@@ -76,7 +76,6 @@ export default class Action extends Component {
       });
     }
     if (action == "View menu") {
-      console.log("yo");
       RestaurantDisplay.dispatch({ type: "update", payload: false });
     }
   };
@@ -91,7 +90,10 @@ export default class Action extends Component {
             this.decideFunction(item.action);
           }}
           style={s.action}>
-          <Text style={[s.actionText, u.abs, u.centerH, u.centerV, u.textWhite]}>{item.action}</Text>
+          <Text
+            style={[s.actionText, u.abs, u.centerH, u.centerV, u.textWhite]}>
+            {item.action}
+          </Text>
         </TouchableOpacity>
       </View>
     );
@@ -100,9 +102,14 @@ export default class Action extends Component {
   render() {
     return (
       <View>
-        <Hours visible={this.state.visible} data={this.state.data.opening_hours.weekday_text} />
+        <Hours
+          visible={this.state.visible}
+          data={this.state.data.opening_hours.weekday_text}
+        />
         <FlatList
-          ListHeaderComponent={<View style={[{ height: 10 }, u.white, u.fullW]} />}
+          ListHeaderComponent={
+            <View style={[{ height: 10 }, u.white, u.fullW]} />
+          }
           scrollEnabled={false}
           data={this.state.list}
           keyExtractor={this.keyExtractor}

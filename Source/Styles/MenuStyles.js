@@ -19,6 +19,26 @@ export default s = StyleSheet.create({
     marginBottom: 15,
     marginLeft: w / 50,
   },
+  categoriesButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    alignItems: "center",
+    alignSelf: "flex-end",
+    marginRight: 20,
+    borderRadius: 75,
+  },
+  categoryButtonText: {
+    color: "#8F8F8F",
+    fontSize: 18,
+    paddingRight: 5,
+    fontWeight: "bold",
+  },
+  categoryChooserBackground: {
+    zIndex: 5,
+    height: h,
+    width: w,
+    position: "relative",
+  },
   foodDesc: {
     color: "#575757",
     fontSize: 14,

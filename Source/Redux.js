@@ -19,3 +19,5 @@ export const HamburgerHandler = createStore(reducer, true);
 export const FromSearch = createStore(reducer, false);
 
 export const RestaurantDisplay = createStore(reducer, false);
+
+export const FocusStore = createStore(reducer, false);

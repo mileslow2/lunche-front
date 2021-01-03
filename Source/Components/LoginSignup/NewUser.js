@@ -6,7 +6,7 @@ import {
   Text,
   TextInput,
   Button,
-  Alert
+  Alert,
 } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import u from "../../Styles/UniversalStyles";
@@ -15,7 +15,7 @@ import s from "./NewUserStyles";
 export default class NewUser extends Component {
   state = {
     email: "",
-    password: ""
+    password: "",
   };
 
   navigate(place) {
@@ -32,19 +32,19 @@ export default class NewUser extends Component {
     if (!verified && stateFull) Alert.alert("Email or Password is incorrect");
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     await this.verifyLogin();
   }
 
-  setEmail = email => {
+  setEmail = (email) => {
     this.setState({
-      email
+      email,
     });
   };
 
-  setPassword = password => {
+  setPassword = (password) => {
     this.setState({
-      password
+      password,
     });
   };
 
@@ -86,8 +86,7 @@ export default class NewUser extends Component {
         </View>
         <TouchableOpacity
           style={[u.shadow, u.centerV, s.loginButton]}
-          onPress={this.attemptLogin}
-        >
+          onPress={this.attemptLogin}>
           <Text style={[u.textWhite, u.centerH, s.buttonText]}>Login</Text>
         </TouchableOpacity>
         <Button

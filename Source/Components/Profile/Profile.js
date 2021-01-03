@@ -6,7 +6,12 @@ import ProfileActions from "./ProfileActions";
 import s from "../../Styles/ProfileStyles";
 import u from "../../Styles/UniversalStyles";
 export default class Profile extends Component {
-  state = { render: false };
+  constructor(props) {
+    super(props);
+    this.state = {
+      render: false,
+    };
+  }
 
   translateX = new Animated.Value(-300);
 
@@ -14,22 +19,22 @@ export default class Profile extends Component {
     Animated.timing(this.translateX, {
       timing: 200,
       useNativeDriver: true,
-      toValue
+      toValue,
     }).start();
   }
 
-  componentWillReceiveProps(props) {
-    const render = props.render;
-    if (render) {
-      this.changeWidth(0);
-      this.setState({ render });
-    } else {
-      this.changeWidth(-300);
-      setTimeout(() => {
-        this.setState({ render });
-      }, 300);
-    }
-  }
+  // UNSAFE_componentWillReceiveProps(props) {
+  //   const render = props.render;
+  //   if (render) {
+  //     this.changeWidth(0);
+  //     this.setState({ render });
+  //   } else {
+  //     this.changeWidth(-300);
+  //     setTimeout(() => {
+  //       this.setState({ render });
+  //     }, 300);
+  //   }
+  // }
 
   render() {
     if (!this.state.render) return null;
@@ -41,9 +46,8 @@ export default class Profile extends Component {
             u.shadow,
             u.z1,
             s.container,
-            { transform: [{ translateX: this.translateX }] }
-          ]}
-        >
+            { transform: [{ translateX: this.translateX }] },
+          ]}>
           {Name()}
           {ProfileActions(this.props.navigation)}
         </Animated.View>

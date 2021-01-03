@@ -11,21 +11,21 @@ const emerald = "rgb(83, 204, 151)";
 
 export default class Navigation extends Component {
   static navigationOptions = {
-    header: null
+    header: null,
   };
 
   state = {
     profileToggled: false,
-    renderBurger: true
+    renderBurger: true,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     var renderBurger;
     this.unsubscribe = HamburgerHandler.subscribe(
       debounce(() => {
         renderBurger = HamburgerHandler.getState();
         this.setState({
-          renderBurger
+          renderBurger,
         });
       }, 1000)
     );

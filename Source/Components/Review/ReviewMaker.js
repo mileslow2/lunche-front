@@ -4,7 +4,7 @@ import {
   View,
   TouchableOpacity,
   TextInput,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import s from "../../Styles/ReviewStyles";
 import u from "../../Styles/UniversalStyles";
@@ -13,12 +13,12 @@ const { width, height } = Dimensions.get("screen");
 
 export default class ReviewMaker extends Component {
   state = {
-    visible: false
+    visible: false,
   };
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     this.setState({
-      visible: props.visible
+      visible: props.visible,
     });
   }
 
@@ -27,8 +27,7 @@ export default class ReviewMaker extends Component {
       <Modal
         visible={this.state.visible}
         hardwareAccelerated={true}
-        fullScreen={true}
-      >
+        fullScreen={true}>
         <View style={[{ width, height }, u.fullW]}>
           <TextInput />
         </View>

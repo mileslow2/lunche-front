@@ -2,7 +2,15 @@
 // styling for it to render, I don't know why
 
 import React, { Component } from "react";
-import { View, TextInput, TouchableOpacity, Dimensions, Animated, Keyboard, Image } from "react-native";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Dimensions,
+  Animated,
+  Keyboard,
+  Image,
+} from "react-native";
 import { Feather } from "@expo/vector-icons";
 import u from "../../Styles/UniversalStyles";
 import s from "../../Styles/SearchStyles";
@@ -16,14 +24,17 @@ import R from "../Universal/Round";
 const halfW = R(width * 0.5);
 
 export default class SearchBar extends Component {
-  state = {
-    iconColor: "#a0a0a0",
-    items: [],
-    displayedItems: [],
-    blurred: true,
-    searchWidth: R(width * 0.8),
-    keyboardOpen: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      iconColor: "#a0a0a0",
+      items: [],
+      displayedItems: [],
+      blurred: true,
+      searchWidth: R(width * 0.8),
+      keyboardOpen: false,
+    };
+  }
 
   toggleShow = () => {
     this.setState({
@@ -38,8 +49,14 @@ export default class SearchBar extends Component {
   };
 
   componentDidMount() {
-    this.keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", this.toggleHide);
-    this.keyboardDidHideListener = Keyboard.addListener("keyboardDidHide", this.toggleShow);
+    this.keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      this.toggleHide
+    );
+    this.keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      this.toggleShow
+    );
   }
 
   componentWillUnmount() {
@@ -123,7 +140,7 @@ export default class SearchBar extends Component {
     return null;
   };
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     if (!props.showSearch) {
       this.changeSearchTop(-70);
       this.blur();
@@ -140,7 +157,11 @@ export default class SearchBar extends Component {
     const list = this.state.blurred ? null : (
       <View style={[u.fullW, u.abs, s.listContainer]}>
         <View style={[u.abs, u.fullW, { top: 40, height: listHeight }]}>
-          <NearbyList fromSearch={true} loc={this.props.loc} restaurants={this.state.displayedItems} />
+          <NearbyList
+            fromSearch={true}
+            loc={this.props.loc}
+            restaurants={this.state.displayedItems}
+          />
         </View>
       </View>
     );
@@ -161,7 +182,10 @@ export default class SearchBar extends Component {
               transform: [{ translateY: this.searchTop }],
             },
           ]}>
-          <Image style={s.icon} source={require("../../../assets/search.png")} />
+          <Image
+            style={s.icon}
+            source={require("../../../assets/search.png")}
+          />
 
           {/* <Feather style={s.icon} name={"search"} color={this.state.iconColor} size={30} /> */}
 

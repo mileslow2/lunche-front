@@ -18,7 +18,7 @@ export default class Map extends Component {
     active: true,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     var store;
     Store.subscribe(() => {
       store = cloneDeep(Store.getState());
@@ -61,7 +61,7 @@ export default class Map extends Component {
     this.map.animateToRegion(loc, 400);
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     this.changeRegionState(props.region);
   }
 
@@ -80,7 +80,10 @@ export default class Map extends Component {
           this.centerMap();
         }}
         style={[s.button, u.abs, u.shadow, u.white]}>
-        <Image style={[u.centerH, u.centerV, s.icon]} source={require("../../../assets/location-arrow-solid.png")} />
+        <Image
+          style={[u.centerH, u.centerV, s.icon]}
+          source={require("../../../assets/location-arrow-solid.png")}
+        />
         {/* <FontAwesome style={[u.centerH, u.centerV, s.icon]} name={"location-arrow"} size={40} color={emerald} /> */}
       </TouchableOpacity>
     );
@@ -106,9 +109,16 @@ export default class Map extends Component {
           pitchEnabled={false}
           showsCompass={false}
           zoomEnabled={false}>
-          {RenderMarkers(this.props.markers, this.state.currentMarker, this.state.region)}
+          {RenderMarkers(
+            this.props.markers,
+            this.state.currentMarker,
+            this.state.region
+          )}
         </MapView>
-        <SearchBar showSearch={this.state.showSearch} restaurants={this.props.markers} />
+        <SearchBar
+          showSearch={this.state.showSearch}
+          restaurants={this.props.markers}
+        />
         {this.renderCenterButton()}
         <Focus
           restaurants={this.props.markers}

@@ -5,21 +5,21 @@ import {
   Text,
   Modal,
   Dimensions,
-  FlatList
+  FlatList,
 } from "react-native";
 import s from "../../Styles/ModalStyles";
 import u from "../../Styles/UniversalStyles";
 export default class Hours extends Component {
   state = {
-    visible: false
+    visible: false,
   };
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     this.setState({
-      visible: props.visible
+      visible: props.visible,
     });
   }
-  keyExtractor = item => item;
+  keyExtractor = (item) => item;
 
   renderItem = ({ item }) => {
     sub = item.substring(0, 1);
@@ -41,12 +41,11 @@ export default class Hours extends Component {
         visible={this.state.visible}
         hardwareAccelerated={true}
         animationType={"slide"}
-        transparent={true}
-      >
+        transparent={true}>
         <TouchableOpacity
           onPress={() => {
             this.setState({
-              visible: false
+              visible: false,
             });
           }}
           style={[s.screenCover, u.abs]}

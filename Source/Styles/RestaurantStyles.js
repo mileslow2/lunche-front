@@ -13,6 +13,19 @@ export default s = StyleSheet.create({
     width: largeText * 2,
     marginTop: r(largeText / 0.73),
   },
+  swipeUpper: {
+    width: 80,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: "#cbcbcb",
+    top: -9,
+    zIndex: 5,
+  },
+  invisible: {
+    height: 50,
+    width,
+    top: -20,
+  },
   paddingLeft: {
     paddingLeft: r(largeText / 1.47),
   },

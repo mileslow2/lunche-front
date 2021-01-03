@@ -10,7 +10,7 @@ export default class Main extends React.Component {
     region: null,
     markers: [],
   };
-  async componentWillMount() {
+  async componentDidMount() {
     await Permissions.askAsync(Permissions.LOCATION);
     region = {
       accuracy: 5,
@@ -38,7 +38,8 @@ export default class Main extends React.Component {
       {
         description: "Best street sushi you will find that's not in Tokyo",
         business_status: "OPERATIONAL",
-        formatted_address: "395 Santa Monica Pl Suite 172, Santa Monica, CA 90401, United States",
+        formatted_address:
+          "395 Santa Monica Pl Suite 172, Santa Monica, CA 90401, United States",
         geometry: {
           location: {
             lat: 33.990323,
@@ -51,7 +52,8 @@ export default class Main extends React.Component {
         },
         photos: [
           {
-            photo_reference: "https://i.pinimg.com/originals/9f/30/79/9f30793d6306bbba1aceaefdb0f1752c.jpg",
+            photo_reference:
+              "https://i.pinimg.com/originals/9f/30/79/9f30793d6306bbba1aceaefdb0f1752c.jpg",
           },
         ],
         place_id: "ChIJMRfJu9GkwoARMwkTtwb5dfk",
@@ -61,7 +63,8 @@ export default class Main extends React.Component {
       {
         description: "Burritos, Tacos, Tostadas, Quesadillas, and more!",
         business_status: "OPERATIONAL",
-        formatted_address: "395 Santa Monica Pl Suite 172, Santa Monica, CA 90401, United States",
+        formatted_address:
+          "395 Santa Monica Pl Suite 172, Santa Monica, CA 90401, United States",
         geometry: {
           location: {
             lat: 33.991413,
@@ -74,7 +77,8 @@ export default class Main extends React.Component {
         },
         photos: [
           {
-            photo_reference: "https://www.cookingclassy.com/wp-content/uploads/2017/03/grilled-chicken-avocado-street-tacos-8.jpg",
+            photo_reference:
+              "https://www.cookingclassy.com/wp-content/uploads/2017/03/grilled-chicken-avocado-street-tacos-8.jpg",
           },
         ],
         place_id: "ChIJMRfJu9GkwoARMwkTtwb5dfk",
@@ -82,9 +86,11 @@ export default class Main extends React.Component {
         reference: "ChIJMRfJu9GkwoARMwkTtwb5dfk",
       },
       {
-        description: "Authentic pizza from an authentic pizza oven ... In a truck",
+        description:
+          "Authentic pizza from an authentic pizza oven ... In a truck",
         business_status: "OPERATIONAL",
-        formatted_address: "395 Santa Monica Pl Suite 172, Santa Monica, CA 90401, United States",
+        formatted_address:
+          "395 Santa Monica Pl Suite 172, Santa Monica, CA 90401, United States",
         geometry: {
           location: {
             lat: 33.987581,
@@ -97,7 +103,8 @@ export default class Main extends React.Component {
         },
         photos: [
           {
-            photo_reference: "https://thecounter.org/wp-content/uploads/2019/01/pizza-prince-street-lawsuit-january-2019-1.jpeg",
+            photo_reference:
+              "https://thecounter.org/wp-content/uploads/2019/01/pizza-prince-street-lawsuit-january-2019-1.jpeg",
           },
         ],
         place_id: "ChIJMRfJu9GkwoARMwkTtwb5dfk",

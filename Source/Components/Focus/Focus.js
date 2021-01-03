@@ -1,9 +1,16 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, Animated, PanResponder, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Animated,
+  PanResponder,
+  Dimensions,
+} from "react-native";
 import s from "../../Styles/FocusStyles";
 import u from "../../Styles/UniversalStyles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Store, FocusChange } from "../../Redux";
+import { Store, FocusChange, FocusStore } from "../../Redux";
 import { debounce } from "debounce";
 import Decide, { nearbyAllowed } from "./Decider";
 import Nearby from "../Nearby/Nearby";
@@ -12,7 +19,9 @@ const { height } = Dimensions.get("screen");
 
 //calculates the heights for nearby and restaurant screen based on screen size
 const nearbyHeight = Math.round(height > 736 ? height * 0.9 : height * 0.95);
-const restaurantHeight = Math.round(height > 736 ? height * 0.79 * 0.7 : height * 0.84 * 0.8);
+const restaurantHeight = Math.round(
+  height > 736 ? height * 0.79 * 0.7 : height * 0.84 * 0.8
+);
 
 var finishHeight, focusHeight, toggled;
 
@@ -23,7 +32,40 @@ export default class Focus extends Component {
   };
 
   upAnim = new Animated.Value(60);
-  height = new Animated.Value(height);
+  animHeight = new Animated.Value(height);
+
+  //getting rid of potential memory leaks
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      if (!this.checkPage() && !this.state.focusToggled) {
+        this.renderFocus();
+      }
+    }, 200);
+
+    this.unsubscribe1 = FocusChange.subscribe(() => {
+      if (FocusChange.getState()) {
+        this.renderFocus();
+        FocusChange.dispatch({ type: "update", payload: false });
+      }
+    });
+
+    //controls height of the focus
+    this.unsubscribe = FocusStore.subscribe(() => {
+      const focusStore = FocusStore.getState();
+      finishHeight = nearbyAllowed() ? nearbyHeight : restaurantHeight;
+      focusHeight = this.state.focusToggled ? finishHeight : 60;
+      this.upAnim.setValue(focusHeight - focusStore.dy);
+      if (focusStore.checkThreshold)
+        if (focusStore.dy > 20 || !this.state.focusToggled) this.renderFocus();
+        else this.returnHeight();
+    });
+  }
+
+  componentWillUnMount() {
+    clearInterval(interval);
+    this.unsubscribe1();
+    this.unsubscribe();
+  }
 
   panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -39,25 +81,20 @@ export default class Focus extends Component {
     onPanResponderRelease: (event, gesture) => {
       if (gesture.dy !== 0)
         if (gesture.dy > 0 || !this.state.focusToggled)
-          if (Math.abs(gesture.dy) > 20) this.renderFocus();
-          else this.returnHeight();
+          // if (Math.abs(gesture.dy) > 20) this.renderFocus();
+          this.returnHeight();
     },
   });
+
   returnHeight() {
     focusHeight = nearbyAllowed() ? nearbyHeight : restaurantHeight;
     this.spring(focusHeight);
   }
-  spring(heightTo) {
-    Animated.spring(this.upAnim, {
-      toValue: heightTo,
-      friction: 7,
-      useNativeDriver: true,
-    }).start();
-  }
+
   renderFocus() {
     let focusToggled = this.state.focusToggled;
     if (nearbyAllowed()) {
-      let focusHeight = focusToggled ? 60 : nearbyHeight;
+      const focusHeight = focusToggled ? 60 : nearbyHeight;
       this.spring(focusHeight);
       this.changeToggle();
       Store.dispatch({ type: "update", payload: this.state.focusToggled });
@@ -74,23 +111,34 @@ export default class Focus extends Component {
       this.changeToggle();
       this.spring(60);
     }
-    // var payload = false;
-    // if (focusToggled) payload = true;
   }
+
   changeToggle() {
-    var focusToggled = !this.state.focusToggled;
     this.setState({
-      focusToggled,
+      focusToggled: !this.state.focusToggled,
     });
-    HamburgerHandler.dispatch({
-      type: "update",
-      payload: !focusToggled,
-    });
+    // HamburgerHandler.dispatch({
+    //   type: "update",
+    //   payload: !focusToggled,
+    // });
   }
+
+  spring(heightTo) {
+    Animated.spring(this.upAnim, {
+      toValue: heightTo,
+      friction: 7,
+      useNativeDriver: true,
+    }).start();
+  }
+  checkPage() {
+    return this.props.currentMarker == -1;
+  }
+
   removeShadow() {
     if (this.state.focusToggled && nearbyAllowed()) return null;
     return <View style={[s.removeShadow, u.abs, u.white, u.z1]} />;
   }
+
   pagenearbyAllowed() {
     const data = {
       nearbyHeight,
@@ -101,28 +149,13 @@ export default class Focus extends Component {
     const toggled = this.state.focusToggled;
     return (
       <View style={{ zIndex: 2 }}>
-        <Decide data={data} toggled={this.state.focusToggle} render={this.state.render} />
+        <Decide
+          data={data}
+          toggled={this.state.focusToggle}
+          render={this.state.render}
+        />
       </View>
     );
-  }
-  checkPage() {
-    return this.props.currentMarker == -1;
-  }
-  componentWillMount() {
-    let int = setInterval(() => {
-      if (!this.checkPage() && !this.state.focusToggled) {
-        this.renderFocus();
-      }
-    }, 200);
-    FocusChange.subscribe(() => {
-      if (FocusChange.getState()) {
-        this.renderFocus();
-        FocusChange.dispatch({ type: "update", payload: false });
-      }
-    });
-  }
-  componentWillUnMount() {
-    clearInterval(int);
   }
   render() {
     return (
@@ -135,15 +168,16 @@ export default class Focus extends Component {
               height,
               transform: [
                 {
-                  translateY: Animated.subtract(this.height, this.upAnim),
+                  translateY: Animated.subtract(this.animHeight, this.upAnim),
                 },
               ],
             },
           ]}>
-          <View {...this.panResponder.panHandlers} style={[u.fullW, u.white, u.shadow, s.bottomHeaderBody]}>
-            <View style={[s.swipeUpper, u.centerH]} />
-            {this.pagenearbyAllowed()}
+          <View style={[u.fullW, u.white, u.shadow, s.bottomHeaderBody]}>
             {this.removeShadow()}
+          </View>
+          <View style={{ zIndex: 5, bottom: 50 }}>
+            {this.pagenearbyAllowed()}
           </View>
         </Animated.View>
       </View>
