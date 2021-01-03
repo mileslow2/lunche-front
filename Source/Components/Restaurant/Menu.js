@@ -47,7 +47,7 @@ const RenderMenuCategory = ({ item }) => {
   return (
     <View style={u.centerH}>
       <FlatList
-        listKey={"parent"}
+        listKey={"foo" + Math.random().toString()}
         ListHeaderComponent={
           <Text style={s.sectionHeader}>{item.sectionName}</Text>
         }
@@ -91,6 +91,8 @@ const Menu = ({ item }) => {
       </TouchableOpacity>
     );
   };
+  var i = 0;
+
   return (
     <View>
       <Modal transparent={false} visible={showCategorychooser}>
@@ -98,11 +100,14 @@ const Menu = ({ item }) => {
       </Modal>
       <CategoryButton />
       <FlatList
-        listKey={"child"}
+        listKey={"foo" + Math.random().toString()}
         style={{ bottom: 15 }}
         data={menu}
         renderItem={RenderMenuCategory}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => {
+          item.id = index + "";
+          return item.id;
+        }}
         showsVerticalScrollIndicator={true}
       />
     </View>
