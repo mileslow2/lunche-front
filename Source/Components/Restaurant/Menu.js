@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   FlatList,
   Text,
@@ -7,6 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Modal,
+  TouchableHighlight,
 } from "react-native";
 import GetMenu from "../../Fetchers/GetMenu";
 import u from "../../Styles/UniversalStyles";
@@ -63,43 +64,90 @@ const RenderMenuCategory = ({ item }) => {
 };
 
 const Menu = ({ item }) => {
-  const [showCategorychooser, setCategorychooser] = useState(false);
-  let menu = GetMenu("test");
+  [modalVisible, setModalVisible] = useState(false);
+  [index, setIndex] = useState(0);
+  menuList = useRef(null);
 
-  const CategoryChooser = () => {
-    if (showCategorychooser) return null;
-    return <View style={s.categoryChooserBackground}></View>;
-  };
+  menu = GetMenu("test");
 
-  const CategoryButton = () => {
+  CategoryButton = () => (
+    <TouchableOpacity
+      style={[u.row, u.alignItemsCenter, s.categoriesButton, u.shadow, u.white]}
+      onPress={() => {
+        setModalVisible(true);
+      }}>
+      <Text style={s.categoryButtonText}>Categories</Text>
+      <MaterialCommunityIcons
+        name="menu-open"
+        size={27}
+        color="rgb(83, 204, 151)"
+      />
+    </TouchableOpacity>
+  );
+
+  ModalCategory = ({ item }) => {
+    const color = item.highlighted ? "rgb(83, 204, 151)" : "#707070";
+    const categoryWidth = item.highlighted
+      ? s.modalHighlightWidth
+      : s.modalNormalWidth;
     return (
       <TouchableOpacity
-        style={[
-          u.row,
-          u.alignItemsCenter,
-          s.categoriesButton,
-          u.shadow,
-          u.white,
-        ]}
-        onPress={() => setCategorychooser(false)}>
-        <Text style={s.categoryButtonText}>Categories</Text>
-        <MaterialCommunityIcons
-          name="menu-open"
-          size={27}
-          color="rgb(83, 204, 151)"
-        />
+        onPress={() => {
+          setIndex(item.id);
+          menuList.current.scrollToIndex({
+            animated: false,
+            index: 1,
+          });
+          setModalVisible(false);
+        }}>
+        <View
+          style={[u.white, u.shadow, s.modalCategory, u.row, categoryWidth]}>
+          <Text style={[s.modalCategoryName, { color }]}>
+            {item.sectionName}
+          </Text>
+          <Text style={[s.modalCategoryAmount]}>
+            {item.sectionItems.length} items
+          </Text>
+        </View>
       </TouchableOpacity>
     );
   };
-  var i = 0;
 
+  CategoryModal = ({ menu }) => {
+    return (
+      <Modal animationType="slide" transparent={true} visible={modalVisible}>
+        <TouchableOpacity
+          onPress={() => {
+            setModalVisible(false);
+          }}
+          style={[s.screenCover, u.centerH, u.row, u.alignItemsEnd, u.abs]}
+        />
+        <View style={[u.white, u.shadow, u.abs, s.modalView]}>
+          <View
+            style={[
+              u.shadow,
+              s.categoryHeaderContainer,
+              u.white,
+              u.alignItemsCenter,
+            ]}>
+            <Text style={s.categoryHeader}>Food Categories</Text>
+          </View>
+          <FlatList
+            data={menu}
+            renderItem={ModalCategory}
+            showsVerticalScrollIndicator={true}
+            style={s.modalList}
+          />
+        </View>
+      </Modal>
+    );
+  };
   return (
     <View>
-      <Modal transparent={false} visible={showCategorychooser}>
-        <CategoryChooser />
-      </Modal>
       <CategoryButton />
+      <CategoryModal menu={menu} />
       <FlatList
+        ref={menuList}
         listKey={"foo" + Math.random().toString()}
         style={{ bottom: 15 }}
         data={menu}
@@ -107,6 +155,15 @@ const Menu = ({ item }) => {
         keyExtractor={(item, index) => {
           item.id = index + "";
           return item.id;
+        }}
+        getItemLayout={(data, index) => {
+          var offset = 0;
+          for (var i = 0; i < index; i++) offset += data[i].sectionItems.length;
+          return {
+            length: data[index].sectionItems.length,
+            offset,
+            index,
+          };
         }}
         showsVerticalScrollIndicator={true}
       />

@@ -104,8 +104,7 @@ export default class Map extends Component {
           initialRegion={this.props.region}
           showsUserLocation={false}
           showsMyLocationButton={false}
-          rotat
-          eEnabled={false}
+          rotateEnabled={false}
           pitchEnabled={false}
           showsCompass={false}
           zoomEnabled={false}>

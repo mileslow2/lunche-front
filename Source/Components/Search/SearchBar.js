@@ -142,7 +142,7 @@ export default class SearchBar extends Component {
 
   UNSAFE_componentWillReceiveProps(props) {
     if (!props.showSearch) {
-      this.changeSearchTop(-70);
+      this.changeSearchTop(-110);
       this.blur();
     } else this.changeSearchTop(16);
     var items = props.restaurants;

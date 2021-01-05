@@ -44,4 +44,7 @@ export default u = StyleSheet.create({
   textWhite: {
     color: "white",
   },
+  alignItemsEnd: {
+    alignItems: "flex-end",
+  },
 });

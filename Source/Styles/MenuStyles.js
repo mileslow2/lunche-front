@@ -34,10 +34,14 @@ export default s = StyleSheet.create({
     fontWeight: "bold",
   },
   categoryChooserBackground: {
-    zIndex: 5,
     height: h,
     width: w,
-    position: "relative",
+    backgroundColor: "rgba(156, 156, 156, 0.5)",
+  },
+  screenCover: {
+    backgroundColor: "rgba(156, 156, 156, 0.5)",
+    height: h,
+    width: w,
   },
   foodDesc: {
     color: "#575757",
@@ -118,5 +122,61 @@ export default s = StyleSheet.create({
   filterButtonIcon: {
     top: 5,
     marginLeft: 5,
+  },
+  modalView: {
+    height: h / 2.2,
+    width: w,
+    bottom: 0,
+  },
+  openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 50,
+    padding: 15,
+    elevation: 2,
+  },
+  categoryHeaderContainer: {
+    padding: 14,
+    borderRadius: 25,
+    bottom: 20,
+  },
+  modalList: {
+    height: h / 2.44,
+    width: w,
+  },
+  modalCategory: {
+    margin: 10,
+    padding: 10,
+    borderRadius: 20,
+  },
+  modalNormalWidth: {
+    maxWidth: w - w / 3.5,
+  },
+  modalHighlightWidth: {
+    maxWidth: w - w / 4,
+  },
+  modalCategoryName: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  modalCategoryAmount: {
+    color: "#707070",
+    right: 14,
+    top: 14,
+    position: "absolute",
+  },
+
+  categoryHeader: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#707070",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });
