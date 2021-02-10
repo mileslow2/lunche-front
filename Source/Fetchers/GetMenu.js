@@ -20,7 +20,7 @@ const pizza = [
     ],
   },
   {
-    sectionName: "Wacky Pizzas",
+    sectionName: "Specialty Pizzas",
     sectionItems: [
       {
         title: "Cheese Pizza",

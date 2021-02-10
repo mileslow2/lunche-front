@@ -21,6 +21,7 @@ export default class Restaurant extends Component {
     }
   }
 
+  //this scares me and idk what it does
   componentDidMount() {
     this.unsubscribe = RestaurantDisplay.subscribe(() => {
       const restaurantDisplay = RestaurantDisplay.getState();
@@ -29,14 +30,28 @@ export default class Restaurant extends Component {
     });
   }
 
+  componentDidUpdate() {
+    if (!this.state.showActions) {
+      FocusStore.dispatch({
+        type: "update",
+        payload: {
+          dy: -200,
+          checkThreshold: false,
+          animated: true,
+        },
+      });
+    }
+  }
+
   panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
     onPanResponderMove: (event, gesture) => {
       FocusStore.dispatch({
         type: "update",
         payload: {
-          dy: gesture.dy,
+          dy: gesture.dy + !this.state.showActions * -200,
           checkThreshold: false,
+          animated: false,
         },
       });
       // toggled = this.state.focusToggled;
@@ -51,7 +66,7 @@ export default class Restaurant extends Component {
       FocusStore.dispatch({
         type: "update",
         payload: {
-          dy: gesture.dy,
+          dy: gesture.dy + !this.state.showActions * -200,
           checkThreshold: true,
         },
       });

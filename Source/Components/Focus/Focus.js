@@ -54,10 +54,15 @@ export default class Focus extends Component {
       const focusStore = FocusStore.getState();
       finishHeight = nearbyAllowed() ? nearbyHeight : restaurantHeight;
       focusHeight = this.state.focusToggled ? finishHeight : 60;
-      this.upAnim.setValue(focusHeight - focusStore.dy);
-      if (focusStore.checkThreshold)
-        if (focusStore.dy > 20 || !this.state.focusToggled) this.renderFocus();
-        else this.returnHeight();
+      if (focusStore.animated) {
+        this.spring(focusHeight - focusStore.dy);
+      } else {
+        this.upAnim.setValue(focusHeight - focusStore.dy);
+        if (focusStore.checkThreshold)
+          if (focusStore.dy > 20 || !this.state.focusToggled)
+            this.renderFocus();
+          else this.returnHeight();
+      }
     });
   }
 
@@ -66,25 +71,6 @@ export default class Focus extends Component {
     this.unsubscribe1();
     this.unsubscribe();
   }
-
-  panResponder = PanResponder.create({
-    onStartShouldSetPanResponder: () => true,
-    onPanResponderMove: (event, gesture) => {
-      toggled = this.state.focusToggled;
-      if (gesture.dy > 0 && !toggled) {
-        finishHeight = nearbyAllowed() ? nearbyHeight : restaurantHeight;
-        focusHeight = toggled ? finishHeight : 60;
-        newValue = focusHeight - gesture.dy;
-        this.upAnim.setValue(newValue);
-      }
-    },
-    onPanResponderRelease: (event, gesture) => {
-      if (gesture.dy !== 0)
-        if (gesture.dy > 0 || !this.state.focusToggled)
-          // if (Math.abs(gesture.dy) > 20) this.renderFocus();
-          this.returnHeight();
-    },
-  });
 
   returnHeight() {
     focusHeight = nearbyAllowed() ? nearbyHeight : restaurantHeight;
